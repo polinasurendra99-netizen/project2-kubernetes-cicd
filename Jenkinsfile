@@ -3,10 +3,13 @@ pipeline {
 
     stages {
 
-          stage('Deploy to Kubernetes') {
+        stage('Build Docker Image') {
             steps {
                 sh '''
-
+                cd application
+                docker build -t devops-app:latest .
+                minikube image load devops-app:latest
+                '''
             }
         }
 
